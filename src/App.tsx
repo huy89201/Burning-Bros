@@ -1,9 +1,17 @@
 import "./App.css";
+import Container from "@mui/material/Container";
+import SearchBar from "./components/searchBar";
+import Productlist from "./components/productList";
 
 function App() {
   return (
     <div className="App">
-      <h1>Hello world</h1>
+      <Container maxWidth="lg">
+        <br />
+        <SearchBar />
+        <br />
+        <Productlist />
+      </Container>
     </div>
   );
 }
