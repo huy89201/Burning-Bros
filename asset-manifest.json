@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Burning-Bros/static/css/main.755754fc.css",
+    "main.js": "/Burning-Bros/static/js/main.346e10c1.js",
+    "static/js/787.6b542db3.chunk.js": "/Burning-Bros/static/js/787.6b542db3.chunk.js",
+    "index.html": "/Burning-Bros/index.html",
+    "main.755754fc.css.map": "/Burning-Bros/static/css/main.755754fc.css.map",
+    "main.346e10c1.js.map": "/Burning-Bros/static/js/main.346e10c1.js.map",
+    "787.6b542db3.chunk.js.map": "/Burning-Bros/static/js/787.6b542db3.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.755754fc.css",
+    "static/js/main.346e10c1.js"
+  ]
+}
