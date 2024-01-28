@@ -1,8 +1,7 @@
 import { useState } from "react";
 import Product from "../interface/product";
 import ToastNotify from "../components/toast";
-
-const BASE_URL = "https://dummyjson.com";
+import { BASE_URL, PAGINATE_LIMIT } from "../util/common";
 
 interface Paginate {
   skip?: number;
@@ -25,7 +24,7 @@ export default function useFetchData() {
       fetch(`${BASE_URL}/products?${paginateString}${queryString}`)
         .then((response: any) => response.json())
         .then((resData: any) => {
-          if (skip! > 10) setData([...data, ...resData.products]);
+          if (skip! > PAGINATE_LIMIT) setData([...data, ...resData.products]);
           else setData([...resData.products]);
 
           setTotal(resData.total);
