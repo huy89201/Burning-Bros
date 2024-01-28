@@ -1,3 +1,10 @@
+import {
+  useState,
+  ChangeEvent,
+  SyntheticEvent,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
@@ -32,7 +39,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   width: "100%",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     [theme.breakpoints.up("lg")]: {
@@ -45,16 +51,39 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function SearchBar() {
+interface SearchBarProps {
+  setQueryString: Dispatch<SetStateAction<string>>;
+}
+
+export default function SearchBar({ setQueryString }: SearchBarProps) {
+  const [input, setInput] = useState<string>("");
+
+  const handleChangeInput = (evt: ChangeEvent<HTMLInputElement>) => {
+    setInput(evt.target.value);
+  };
+
+  const handleSubmit = (evt: SyntheticEvent) => {
+    evt.preventDefault();
+
+    if (!input) return;
+
+    setQueryString(input);
+    setInput("");
+  };
+
   return (
-    <Search>
-      <SearchIconWrapper>
-        <SearchIcon />
-      </SearchIconWrapper>
-      <StyledInputBase
-        placeholder="Search…"
-        inputProps={{ "aria-label": "search" }}
-      />
-    </Search>
+    <form onSubmit={handleSubmit}>
+      <Search>
+        <SearchIconWrapper>
+          <SearchIcon />
+        </SearchIconWrapper>
+        <StyledInputBase
+          placeholder="Search…"
+          inputProps={{ "aria-label": "search" }}
+          value={input}
+          onChange={handleChangeInput}
+        />
+      </Search>
+    </form>
   );
 }

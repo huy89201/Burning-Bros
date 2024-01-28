@@ -3,13 +3,12 @@ import useFetchData from "../../hooks/useFetchData";
 import { Grid } from "@mui/material";
 import ProductCard from "../productCard";
 
-interface Paginate {
-  skip: number;
-  limit: number;
+interface ProductListProps {
+  queryString?: string;
 }
 
-export default function Productlist() {
-  const { fetchProducts, data: products, total } = useFetchData();
+export default function Productlist({ queryString }: ProductListProps) {
+  const { fetchProducts, data: products, total = 0 } = useFetchData();
 
   const [skip, setsKip] = useState(0);
   const limit = 10;
@@ -26,8 +25,14 @@ export default function Productlist() {
   useEffect(() => {
     if (skip > total) return;
 
-    fetchProducts({ skip, limit });
+    fetchProducts({ skip, limit, query: queryString });
   }, [skip]);
+
+  //reset when search
+  useEffect(() => {
+    setsKip(0);
+    fetchProducts({ skip: 0, limit, query: queryString });
+  }, [queryString]);
 
   useEffect(() => {
     window.addEventListener("scroll", newSkip);
@@ -37,7 +42,7 @@ export default function Productlist() {
 
   return (
     <Grid container spacing={2}>
-      {products.length > 0 &&
+      {products &&
         products.map((item) => (
           <Grid key={item.id} item lg={3} md={4} xs={12}>
             <ProductCard product={item} />
